@@ -1,6 +1,7 @@
 const express=require('express')
 const dotenv=require('dotenv')
 const mongoose=require('mongoose')
+const cors=require('cors')
 
 const workoutRoutes=require('./routes/workout')
 
@@ -8,6 +9,7 @@ const workoutRoutes=require('./routes/workout')
 dotenv.config() // Load environment variables from .env file
 const app=express() //method to create an express application
 
+app.use(cors()) // Enable Cross-Origin Resource Sharing
 app.use(express.json()) // Middleware to parse JSON bodies of incoming requests 
 app.use((req,res,next)=>{ //GET,POST,PUT,DELETE
     console.log(req.path,req.method)
