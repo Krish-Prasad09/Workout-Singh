@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
+import { API_URL } from '../config';
 
 const WorkoutForm = () => {
 
@@ -16,7 +17,7 @@ const WorkoutForm = () => {
 
         const workout = {title, load, reps}
 
-            const response = await fetch((process.env.REACT_APP_API_URL || '') + '/api/workouts', {
+            const response = await fetch(API_URL + '/api/workouts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
