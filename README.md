@@ -8,6 +8,10 @@
 
 WorkOut is a sleek, modern, and highly responsive web application designed to help fitness enthusiasts log and monitor their daily workout routines. Easily track exercise names, weights (loads), and repetitions to hit your fitness goals!
 
+### 🔗 Live Links
+- **Frontend App (Vercel)**: [https://workout-singh.vercel.app/](https://workout-singh.vercel.app/)
+- **Backend API (Render)**: [https://workout-singh.onrender.com/](https://workout-singh.onrender.com/)
+
 ---
 
 ## 🚀 Features
