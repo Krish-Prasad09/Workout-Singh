@@ -3,7 +3,8 @@ const mongoose=require('mongoose')
 
 // get all workouts
 exports.getWorkouts=async(req,res)=>{
-    const workouts=await Workout.find({/*reps:15 */}).sort({createdAt:-1}) //sort by createdAt in descending order  
+    const user_id=req.user._id
+    const workouts=await Workout.find({/*reps:15 */ user_id}).sort({createdAt:-1}) //sort by createdAt in descending order  
     if(!workouts){
         return res.status(404).json({error: 'No workouts found'})
     }
@@ -28,6 +29,9 @@ exports.getWorkout=async(req,res)=>{
 
 //create a new workout
 exports.createWorkout = async (req, res) => {
+
+    
+
     const {title,load,reps}=req.body;
 
     let emptyFields=[];
@@ -48,7 +52,8 @@ exports.createWorkout = async (req, res) => {
 
     //add doc to db
     try{
-        const workout=await Workout.create({title,reps,load}) //for database things it is good to put async await so that it waits for the database to respond before moving on to the next line of code
+        const user_id=req.user._id
+        const workout=await Workout.create({title,reps,load,user_id}) //for database things it is good to put async await so that it waits for the database to respond before moving on to the next line of code
         res.status(200).json(workout)
     }catch(err){
         res.status(400).json({error: err.message})

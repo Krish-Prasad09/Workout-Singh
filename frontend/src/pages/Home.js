@@ -5,25 +5,35 @@ import WorkoutForm from '../components/WorkoutForm';
 //useEffect is used to fetch data from the backend and useState is used to store the data in the state and display it on the frontend
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 import { API_URL } from '../config';
-
+import {useAuthContext} from '../hooks/useAuthContext'
 
 const Home = () => {
 
   // onst [workouts,setWorkout]=useState(null)c
 
   const {workouts, dispatch} = useWorkoutsContext();
+  const {user} =useAuthContext()
+
 
   useEffect(() => {
     const fetchWorkouts = async () => {
-      const response=await fetch(API_URL + '/api/workouts')
+      const response=await fetch(API_URL + '/api/workouts',{
+        headers:{
+          'Authorization':`Bearer ${user.token}`
+        }
+      })
       const json=await response.json()
       if(response.ok){
         // setWorkout(json)
         dispatch({type:'SET_WORKOUTS', payload: json})
       }
     }
-    fetchWorkouts()
-  },[dispatch])
+
+    if(user){
+      fetchWorkouts()
+    }
+
+  },[dispatch,user])
 
 
   return (

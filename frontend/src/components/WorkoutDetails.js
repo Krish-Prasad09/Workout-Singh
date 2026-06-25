@@ -1,17 +1,29 @@
 import React from 'react'
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext'
 import { API_URL } from '../config'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 //Data-fns
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 const WorkoutDetails = ({ workout }) => {
 
+  const {user}=useAuthContext()
 
 
   const { dispatch } = useWorkoutsContext()
   const handleClick = async () => {
+
+    if(!user){
+      return
+    }
+
+
+
     const response =await fetch(API_URL + '/api/workouts/' + workout._id, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers:{
+        'Authorization': `Bearer ${user.token}`
+      }
     })
     if(response.ok){
       // Do something, e.g., update the UI or show a success message

@@ -4,7 +4,7 @@ const mongoose=require('mongoose')
 const cors=require('cors')
 
 const workoutRoutes=require('./routes/workout')
-
+const userRoutes=require('./routes/user')
 
 dotenv.config() // Load environment variables from .env file
 const app=express() //method to create an express application
@@ -23,7 +23,7 @@ app.get('/',(req,res)=>{
 
 
 app.use('/api/workouts',workoutRoutes) // Use the workout routes for any requests to /api/workouts
- 
+app.use('/api/users',userRoutes) // Use the user routes for any requests to /api/users
 
 mongoose.connect(process.env.MONGO_URI)
     .then(()=>{
